@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom';
+import { Link, Links, NavLink } from 'react-router-dom';
+import { FaXmark } from "react-icons/fa6";
+import { FaBarsStaggered } from "react-icons/fa6";
+
+
 
 function Navbar() {
 
@@ -26,7 +30,7 @@ function Navbar() {
 
         {/* Nav items large devices */}
 
-        <ul className=' md:flex gap-12'>
+        <ul className='hidden md:flex gap-12'>
             {navItems.map(({path,title})=>(
                 <li key={path} className='text-base text-primary'>
                     <NavLink to={path} className={({isActive})=> isActive ? "active:":""}>
@@ -44,7 +48,36 @@ function Navbar() {
             <Link to="/login" className='py-2 px-5 border rounded'> Login</Link>
             <Link to="/sigin-up" className='py-2 px-5 border rounded bg-blue text-white '> SIgn up</Link>
         </div>
+
+        {/* Mobile menu */}
+
+        <div className='md:hidden block'>
+            <button onClick={handleMenuToggler}>
+                {
+                    isMenuOpen ? <FaXmark className='w-5 h-5 text-primary'/>: <FaBarsStaggered className='w-5 h-5 text-primary'/>
+                }
+            </button>
+        </div>
     </nav>
+                
+        {/* Navigations for mobile */}
+
+        <div className={`px-4 bg-black py-5 rounded-sm ${isMenuOpen ? "": "hidden"}`}>
+        <ul className=' md:flex gap-12'>
+            {navItems.map(({path,title})=>(
+                <li key={path} className='text-base text-white first:text-white py-1'>
+                    <NavLink to={path} className={({isActive})=> isActive ? "active:":""}>
+                        {title} 
+
+                    </NavLink>
+
+                </li>
+            ))}
+            <li className='text-white py-1'><Link to="/login">Log in</Link></li>
+        </ul>
+
+        </div>
+
   </header>
   );
 };
