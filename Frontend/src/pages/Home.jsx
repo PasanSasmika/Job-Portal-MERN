@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Banner from '../components/Banner'
+import Card from '../components/Card';
 
 function Home() {
 
@@ -13,7 +14,7 @@ function Home() {
   },[])
   
    // Handle input change
-
+     
   const [query, setQuery] = useState("");
   const handleInputChange = (event)=>{
     setQuery(event.target.value)
@@ -22,6 +23,47 @@ function Home() {
   // Filtering by job title
 
   const filteredItems = jobs.filter((job)=> job.jobTitle.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+
+  //----------- Radio filtering ------------//
+
+  const handleChange = (event)=>{
+    selectedCategory(event.target.value)
+  }
+
+  //------ Button based filtering-----------//
+
+  const handleClick = (event)=>{
+    setSelectedCategory(event.target.value)
+  }
+
+  //main function---------//
+
+  const filteredData = (jobs,selected,query)=>{
+    let filterdedJobs = jobs;
+
+    if(query){
+      filterdedJobs=filteredItems;
+    }
+
+    // Category filtering
+    if(selected){
+      filterdedJobs = filterdedJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,postingDate})=>(
+        jobLocation.toLowerCase()=== selected.toLowerCase() ||
+        parseInt(maxPrice) <= parseInt(selected) ||
+        salaryType.toLowerCase()=== selected.toLowerCase()||
+        employmentType.toLowerCase() === selected.toLowerCase() 
+      ));
+      console.log(filterdedJobs);
+    }
+
+    return filterdedJobs.map((data, i)=> 
+        <Card key={i} data={data}/>
+    )
+  }
+
+  const result = filteredData(jobs, selectedCategory,query);
+
+
 
   return (
     <Banner query={query} handleInputChange={handleInputChange}/>
