@@ -18,6 +18,8 @@ function Location({handleChange}) {
             <InputField handleChange={handleChange} value="san francisco" title="san francisco" name="test"/>
             <InputField handleChange={handleChange} value="seattle" title="seattle" name="test"/>
             <InputField handleChange={handleChange} value="brussels" title="brussels" name="test"/>
+            <InputField handleChange={handleChange} value="brisban" title="brisban" name="test"/>
+
 
         </div>
     </div>

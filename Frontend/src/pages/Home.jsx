@@ -8,10 +8,14 @@ function Home() {
 
   const [selectedCategory,setSelectedCategory] = useState(null);
   const[jobs,setJobs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage,setCurrentPage] = useState(1);
+  const itemsPerPage  = 6;
 
   useEffect(()=>{
     fetch("jobs.json").then(res => res.json()).then(data =>{
-      setJobs(data)
+      setJobs(data);
+      setIsLoading(false)
     })
   },[])
   
@@ -81,8 +85,16 @@ function Home() {
     </div>
 
     {/* JOb Side */}
-    <div className='col-span-2 bg-white p-4 rounded-sm'><Jobs result={result}/></div>
+    <div className='col-span-2 bg-white p-4 rounded-sm'>
+      {
+        isLoading ? (<p>Loading....</p>) : result.length > 0 ? ( <Jobs result={result}/>) : <>
+        
+        <h3 className='text-lg font-bold'>{result.length} Jobs</h3>
+        <p>No Job found !</p>
+        </>
 
+      }
+  </div>
     {/* Email side */}
     <div className='bg-white p-4 rounded'>Right</div>
 
