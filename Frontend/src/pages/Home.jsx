@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Banner from '../components/Banner'
 import Card from '../components/Card';
 import Jobs from './Jobs';
+import Sidebar from '../sidebar/Sidebar';
 
 function Home() {
 
@@ -28,7 +29,7 @@ function Home() {
   //----------- Radio filtering ------------//
 
   const handleChange = (event)=>{
-    selectedCategory(event.target.value)
+    setSelectedCategory(event.target.value)
   }
 
   //------ Button based filtering-----------//
@@ -71,8 +72,18 @@ function Home() {
     <Banner query={query} handleInputChange={handleInputChange}/>
 
     <div className='bg-[#FAFAFAFA] md:grid grid-cols-4 gap-8 lg:px-24 px-4 py-12'>
-    <div className='bg-white p-4 rounded'>Left</div>
+
+      {/* Job Filtering side */}
+    <div className='bg-white p-4 rounded'>
+
+      <Sidebar handleChange={handleChange} handleClick={handleClick}/>
+
+    </div>
+
+    {/* JOb Side */}
     <div className='col-span-2 bg-white p-4 rounded-sm'><Jobs result={result}/></div>
+
+    {/* Email side */}
     <div className='bg-white p-4 rounded'>Right</div>
 
     </div>
