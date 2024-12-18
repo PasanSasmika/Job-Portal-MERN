@@ -2,6 +2,8 @@ import React from 'react'
 import Location from './Location'
 import Salary from './Salary'
 import JobPostingDate from './JobPostingDate'
+import WorkExpe from './WorkExpe'
+import Emptype from './Emptype'
 
 function Sidebar({handleClick,handleChange}) {
   return (
@@ -11,6 +13,8 @@ function Sidebar({handleClick,handleChange}) {
                 <Location handleChange={handleChange}/>
                 <Salary  handleChange={handleChange} handleClick={handleClick}/>
                 <JobPostingDate handleChange={handleChange}/>
+                <WorkExpe  handleChange={handleChange}/>
+                <Emptype handleChange={handleChange}/>
     </div>
   )
 }
