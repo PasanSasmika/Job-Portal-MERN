@@ -42,6 +42,31 @@ function Home() {
     setSelectedCategory(event.target.value)
   }
 
+  // calculate the index range
+
+  const calculatePageRange =()=>{
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return {startIndex, endIndex};
+  }
+
+  // function for the next page
+
+  const nextPage =()=>{
+    if(currentPage < Math.ceil(filteredItems.length / itemsPerPage)){
+      setCurrentPage(currentPage + 1);
+
+    }
+  }
+
+  // function for the previous page
+
+  const previous =()=>{
+   if(currentPage > 1){
+    setCurrentPage(currentPage - 1)
+   }
+  }
+
   //main function---------//
 
   const filteredData = (jobs,selected,query)=>{
@@ -62,6 +87,9 @@ function Home() {
       console.log(filterdedJobs);
     }
 
+      // slice the data based on current page
+      const {startIndex, endIndex} = calculatePageRange();
+      filterdedJobs = filterdedJobs.slice(startIndex, endIndex) 
     return filterdedJobs.map((data, i)=> 
         <Card key={i} data={data}/>
     )
@@ -94,6 +122,19 @@ function Home() {
         </>
 
       }
+
+      {/* Pagination is here */}
+        {
+          result.length > 0 ? (
+            <div className='flex justify-center mt-4 space-x-8'>
+              <button onClick={previous}>Previous</button>
+              <span>page {currentPage} of {Math.ceil(filteredItems.length / itemsPerPage)}</span>
+              <button onClick={nextPage} disabled={currentPage === Math.ceil(filteredItems.length / itemsPerPage)}>Next</button>
+            </div>
+          ) : ""
+        }
+
+
   </div>
     {/* Email side */}
     <div className='bg-white p-4 rounded'>Right</div>
