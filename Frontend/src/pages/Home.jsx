@@ -80,6 +80,7 @@ function Home() {
     if(selected){
       filterdedJobs = filterdedJobs.filter(({jobLocation,maxPrice,experienceLevel,salaryType,employmentType,postingDate})=>(
         jobLocation.toLowerCase()=== selected.toLowerCase() ||
+        postingDate>= selected ||
         parseInt(maxPrice) <= parseInt(selected) ||
         salaryType.toLowerCase()=== selected.toLowerCase()||
         employmentType.toLowerCase() === selected.toLowerCase() 
